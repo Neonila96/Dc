@@ -55,12 +55,12 @@ def base_url():
 
 
 @pytest.fixture(scope="module")
-def base_url():
+def base_url1():
     return "https://discord.com/api/v10"
 
 
 @pytest.fixture(scope="module")
-def channel_id():
+def channel_id1():
     return 1286673475565518878
 
 
@@ -74,7 +74,7 @@ def headers():
 
 
 @pytest.fixture
-def message_id(base_url, channel_id, headers):
+def message_id(base_url1, channel_id1, headers):
     # Создание сообщения перед каждым тестом
     url = f"{base_url}/channels/{channel_id}/messages"
     data = {
@@ -86,6 +86,6 @@ def message_id(base_url, channel_id, headers):
     yield message_id  # Возвращаем message_id для использования в тестах
 
     # Удаление сообщения после теста
-    delete_url = f"{base_url}/channels/{channel_id}/messages/{message_id}"
+    delete_url = f"{base_url1}/channels/{channel_id1}/messages/{message_id}"
     response = requests.delete(delete_url, headers=headers)
     assert response.status_code == 204, f"Failed to delete message: {response.text}"
