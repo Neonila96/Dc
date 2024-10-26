@@ -23,19 +23,19 @@ class LoginPage(BasePage):
     def login_user(self):
         try:
             # Ожидание появления поля ввода логина
-            login_input = WebDriverWait(self.driver, 10).until(
+            login_input = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located(self.login_input_locator())
             )
             self.send_keys(login_input, "neonila.zinova@icloud.com")
 
             # Ожидание появления поля ввода пароля
-            password_input = WebDriverWait(self.driver, 10).until(
+            password_input = WebDriverWait(self.driver, 20).until(
                 EC.presence_of_element_located(self.password_input_locator())
             )
             self.send_keys(password_input, "1809Vika")
 
             # Ожидание появления кнопки "Вход"
-            login_button = WebDriverWait(self.driver, 10).until(
+            login_button = WebDriverWait(self.driver, 20).until(
                 EC.element_to_be_clickable(self.login_user_button_locator())
             )
             self.click(login_button)
@@ -48,6 +48,6 @@ class LoginPage(BasePage):
     def open_login_page(self):
         self.open_page()
         # Дополнительное ожидание, чтобы убедиться, что страница загружена
-        WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 20).until(
             EC.presence_of_element_located(self.login_input_locator())
         )
