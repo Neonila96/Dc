@@ -76,7 +76,7 @@ def headers():
 @pytest.fixture
 def message_id(base_url1, channel_id1, headers):
     # Создание сообщения перед каждым тестом
-    url = f"{base_url}/channels/{channel_id}/messages"
+    url = f"{base_url1}/channels/{channel_id1}/messages"
     data = {
         "content": "Калды Балды."
     }
