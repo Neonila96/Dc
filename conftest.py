@@ -1,6 +1,7 @@
 import time
 import pytest
 import requests
+import json
 from selenium import webdriver
 from home_page import HomePage
 from login_page import LoginPage
@@ -9,12 +10,10 @@ from login_page import LoginPage
 @pytest.fixture(scope="class")
 def init_driver(request):
     # Инициализация драйвера
-
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')
-    # driver = webdriver.Chrome(options=options)
-
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Chrome(options=options)
+    
     driver.implicitly_wait(10)
     driver.maximize_window()
     request.cls.driver = driver
