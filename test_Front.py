@@ -4,7 +4,6 @@ from home_page import HomePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 # Пишем какое сообщение хотим отправить
 text = "Привет,привет"
 text_mention = "Привет @BEE-diploma#7805 как ты?"
@@ -13,50 +12,43 @@ text_mention_non_exist_user = "Привет @васяпупкин как тво�
 @pytest.mark.usefixtures("init_driver", "base_url")
 class TestMessage:
     def test_send_message(self, base_url):
-        
-    home_page = HomePage(self.driver)
-    
-    assert self.driver.current_url == base_url, "Не на нужной странице"
-    time.sleep(2)  # Дать время на загрузку
-    print("Отправляем сообщение...")
-    
-    home_page.send_message_in_channel(text)
-    time.sleep(2)  # Дать время на отправку сообщения
-
-    # Скриншот после отправки
-    self.driver.save_screenshot('after_send_message.png')
-
-    message_send = home_page.is_message_send()
-    assert message_send.count(text) == 1, "Сообщение не отправлено"
-
-
-
-    def test_edit_message(self,base_url):
-        # Инициализация страницы
         home_page = HomePage(self.driver)
 
-        #Нажимаем редактировать сообщение
+        assert self.driver.current_url == base_url, "Не на нужной странице"
+        time.sleep(2)  # Дать время на загрузку
+        print("Отправляем сообщение...")
+
+        home_page.send_message_in_channel(text)
+        time.sleep(2)  # Дать время на отправку сообщения
+
+        # Скриншот после отправки
+        self.driver.save_screenshot('after_send_message.png')
+
+        message_send = home_page.is_message_send()
+        assert message_send.count(text) == 1, "Сообщение не отправлено"
+
+    def test_edit_message(self, base_url):
+        home_page = HomePage(self.driver)
+
+        # Нажимаем редактировать сообщение
         home_page.edit_message()
         time.sleep(3)
 
-        #Проверка, что новый текст с пометкой (изменено)
+        # Проверка, что новый текст с пометкой (изменено)
         new_message = home_page.is_message_send()
         assert new_message.count('изменено') == 1
 
-
-    def test_add_reacrion(self, base_url):
-        # Инициализация страницы
+    def test_add_reaction(self, base_url):
         home_page = HomePage(self.driver)
 
         # Поставить реакцию
         home_page.send_reactoin()
         time.sleep(3)
+
         # Проверка, что реакция появилась под сообщением
-        assert home_page.is_reactoin_displayed().is_displayed() == True, "Реакция на сообщение отсутствует"
+        assert home_page.is_reactoin_displayed().is_displayed(), "Реакция на сообщение отсутствует"
 
-
-    def test_delete_reacrion(self, base_url):
-        # Инициализация страницы
+    def test_delete_reaction(self, base_url):
         home_page = HomePage(self.driver)
 
         # Удалить реакцию
@@ -66,9 +58,7 @@ class TestMessage:
         assert WebDriverWait(self.driver, 5).until(
             EC.invisibility_of_element_located(home_page.reaction_locator()))
 
-
     def test_delete_message(self, base_url):
-        # Инициализация страницы
         home_page = HomePage(self.driver)
 
         # Удалить сообщение
@@ -78,9 +68,7 @@ class TestMessage:
         assert WebDriverWait(self.driver, 5).until(
             EC.invisibility_of_element_located(home_page.form_message_locator()))
 
-
     def test_send_message_with_mention(self, base_url):
-        # Инициализация страницы
         home_page = HomePage(self.driver)
 
         # Отправка сообщения
@@ -98,12 +86,10 @@ class TestMessage:
 @pytest.mark.usefixtures("init_driver", "base_url")
 class TestNegative:
     def test_send_message_with_non_exist_user(self, base_url):
-        # Инициализация страницы
         home_page = HomePage(self.driver)
 
         # Отправка сообщения
         home_page.send_message_in_channel(text_mention_non_exist_user)
 
         # Проверка, что упомянутый пользователь не существует
-        assert home_page.is_mention_user_non_exists() == None
-
+        assert home_page.is_mention_user_non_exists() is None
