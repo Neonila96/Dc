@@ -24,8 +24,7 @@ class BasePage:
     def open_page(self, url=''):
         self.driver.get(self.base_url + url)
 
-    def send_keys(self, locator, text):
-        element = self.find_element(locator)
+    def send_keys(self, element, text):
         element.send_keys(text)
 
     def send_message(self,locator, text_m):
