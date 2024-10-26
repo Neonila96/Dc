@@ -2,10 +2,10 @@ import pytest
 import requests
 
 
-@pytest.mark.usefixtures("base_url", "channel_id", "headers", "message_id")
+@pytest.mark.usefixtures("base_url1", "channel_id1", "headers", "message_id")
 # Тестирование создания сообщения с текстом и вложением
-def test_create_message_with_text_and_attachment(base_url, channel_id, headers):
-    url = f"{base_url}/channels/{channel_id}/messages"
+def test_create_message_with_text_and_attachment(base_url1, channel_id1, headers):
+    url = f"{base_url1}/channels/{channel_id1}/messages"
 
 
     files = {
@@ -36,8 +36,8 @@ def test_create_message_with_text_and_attachment(base_url, channel_id, headers):
     print("Тест 'Создание сообщения с текстом и вложением' пройден успешно!")
 
 
-def test_get_message(base_url, channel_id, headers, message_id):
-    url = f"{base_url}/channels/{channel_id}/messages/{message_id}"
+def test_get_message(base_url1, channel_id1, headers, message_id):
+    url = f"{base_url1}/channels/{channel_id1}/messages/{message_id}"
     response = requests.get(url, headers=headers)
     assert response.status_code == 200
     assert response.json().get('id') == str(message_id)
@@ -45,8 +45,8 @@ def test_get_message(base_url, channel_id, headers, message_id):
     print("Тест 'Получение сообщения' пройден успешно!")
 
 
-def test_get_messages_array(base_url, channel_id, headers, message_id):
-    url = f"{base_url}/channels/{channel_id}/messages"
+def test_get_messages_array(base_url1, channel_id1, headers, message_id):
+    url = f"{base_url1}/channels/{channel_id1}/messages"
     params = {
         "limit": 50  # Получаем до 50 сообщений
     }
@@ -59,32 +59,32 @@ def test_get_messages_array(base_url, channel_id, headers, message_id):
     print("Тест 'Получение массива сообщений' пройден успешно!")
 
 
-def test_add_reaction(base_url, channel_id, headers, message_id):
+def test_add_reaction(base_url1, channel_id1, headers, message_id):
     emoji = "🔥"  # Эмодзи для реакции
     emoji_encoded = requests.utils.quote(emoji)  # URL-кодирование эмодзи
-    url = f"{base_url}/channels/{channel_id}/messages/{message_id}/reactions/{emoji_encoded}/@me"
+    url = f"{base_url1}/channels/{channel_id1}/messages/{message_id}/reactions/{emoji_encoded}/@me"
     response = requests.put(url, headers=headers)
     assert response.status_code == 204  # Успешный код ответа
 
     print("Тест 'Добавление реакции' пройден успешно!")
 
 
-def test_remove_reaction(base_url, channel_id, headers, message_id):
+def test_remove_reaction(base_url1, channel_id1, headers, message_id):
     emoji = "🔥"  # Эмодзи для реакции
     emoji_encoded = requests.utils.quote(emoji)  # URL-кодирование эмодзи
     # Сначала добавляем реакцию
-    add_reaction_url = f"{base_url}/channels/{channel_id}/messages/{message_id}/reactions/{emoji_encoded}/@me"
+    add_reaction_url = f"{base_url1}/channels/{channel_id1}/messages/{message_id}/reactions/{emoji_encoded}/@me"
     requests.put(add_reaction_url, headers=headers)
     # Теперь удаляем реакцию
-    remove_reaction_url = f"{base_url}/channels/{channel_id}/messages/{message_id}/reactions/{emoji_encoded}/@me"
+    remove_reaction_url = f"{base_url1}/channels/{channel_id1}/messages/{message_id}/reactions/{emoji_encoded}/@me"
     response = requests.delete(remove_reaction_url, headers=headers)
     assert response.status_code == 204  # Успешное удаление
 
     print("Тест 'Удаление реакции' пройден успешно!")
 
 
-def test_create_message_without_content(base_url, channel_id, headers):
-    url = f"{base_url}/channels/{channel_id}/messages"
+def test_create_message_without_content(base_url1, channel_id1, headers):
+    url = f"{base_url1}/channels/{channel_id1}/messages"
     data = {
         "content": ""  # Пустое сообщение
     }
@@ -93,29 +93,29 @@ def test_create_message_without_content(base_url, channel_id, headers):
     print("Негативный тест 'Создание сообщения без контента' пройден успешно!")
 
 
-def test_get_message_with_invalid_id(base_url, channel_id, headers):
+def test_get_message_with_invalid_id(base_url1, channel_id1, headers):
     invalid_message_id = "12345678901234567890"  # Не существующий ID
-    url = f"{base_url}/channels/{channel_id}/messages/{invalid_message_id}"
+    url = f"{base_url1}/channels/{channel_id1}/messages/{invalid_message_id}"
     response = requests.get(url, headers=headers)
     assert response.status_code == 400, f"Expected 404 for invalid message ID, but got {response.status_code}: {response.text}"
     print("Негативный тест 'Получение сообщения с несуществующим ID' пройден успешно!")
 
 
-def test_add_reaction_to_nonexistent_message(base_url, channel_id, headers):
+def test_add_reaction_to_nonexistent_message(base_url1, channel_id1, headers):
     invalid_message_id = "12345678901234567890"  # Не существующий ID
     emoji = "🔥"
     emoji_encoded = requests.utils.quote(emoji)
-    url = f"{base_url}/channels/{channel_id}/messages/{invalid_message_id}/reactions/{emoji_encoded}/@me"
+    url = f"{base_url1}/channels/{channel_id1}/messages/{invalid_message_id}/reactions/{emoji_encoded}/@me"
     response = requests.put(url, headers=headers)
     assert response.status_code == 400, f"Expected 404 for adding reaction to nonexistent message, but got {response.status_code}: {response.text}"
     print("Негативный тест 'Добавление реакции к несуществующему сообщению' пройден успешно!")
 
 
-def test_remove_reaction_from_nonexistent_message(base_url, channel_id, headers):
+def test_remove_reaction_from_nonexistent_message(base_url1, channel_id1, headers):
     invalid_message_id = "12345678901234567890"  # Не существующий ID
     emoji = "🔥"
     emoji_encoded = requests.utils.quote(emoji)
-    url = f"{base_url}/channels/{channel_id}/messages/{invalid_message_id}/reactions/{emoji_encoded}/@me"
+    url = f"{base_url1}/channels/{channel_id1}/messages/{invalid_message_id}/reactions/{emoji_encoded}/@me"
     response = requests.delete(url, headers=headers)
     assert response.status_code == 400, f"Expected 404 for removing reaction from nonexistent message, but got {response.status_code}: {response.text}"
     print("Негативный тест 'Удаление реакции от несуществующего сообщения' пройден успешно!")
