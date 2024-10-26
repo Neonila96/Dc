@@ -25,7 +25,7 @@ class LoginPage(BasePage):
         self.find_element(self.password_input_locator())
         self.send_keys(self.password_input_locator(), "1809Vika")
         self.find_element(self.login_user_button_locator())
-        time.sleep(5)
+        time.sleep(10)
         self.click(self.login_user_button_locator())
 
     # Метод для открытия страницы
