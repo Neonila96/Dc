@@ -1,0 +1,22 @@
+Ошибка при логине: Message: 
+Stacktrace:
+#0 0x5652d197b0aa <unknown>
+#1 0x5652d14921a0 <unknown>
+#2 0x5652d14ded06 <unknown>
+#3 0x5652d14defa1 <unknown>
+#4 0x5652d1524344 <unknown>
+#5 0x5652d1502dad <unknown>
+#6 0x5652d1521866 <unknown>
+#7 0x5652d1502b23 <unknown>
+#8 0x5652d14d1990 <unknown>
+#9 0x5652d14d296e <unknown>
+#10 0x5652d194716b <unknown>
+#11 0x5652d194af68 <unknown>
+#12 0x5652d193464c <unknown>
+#13 0x5652d194bae7 <unknown>
+#14 0x5652d19194af <unknown>
+#15 0x5652d19694f8 <unknown>
+#16 0x5652d19696c0 <unknown>
+#17 0x5652d1979f26 <unknown>
+#18 0x7f276a294ac3 <unknown>
+
