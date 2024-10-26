@@ -1,6 +1,7 @@
 from base_page import BasePage
 from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage(BasePage):
     def __init__(self, driver):
@@ -8,24 +9,35 @@ class LoginPage(BasePage):
 
     # Локатор для кнопки "Вход"
     def login_user_button_locator(self):
-        return By.XPATH, f'//button//div[text()="Вход"]'
+        return By.XPATH, '//button//div[text()="Вход"]'
 
     # Локатор для ввода логина
     def login_input_locator(self):
-        return By.XPATH, f'//input[@id="uid_7"]'
+        return By.XPATH, '//input[@id="uid_7"]'
 
     # Локатор для ввода пароля
     def password_input_locator(self):
-        return By.XPATH, f'//input[@id="uid_9"]'
+        return By.XPATH, '//input[@id="uid_9"]'
 
     # Метод для залогиниться
     def login_user(self):
         try:
-            self.find_element(self.login_input_locator())
+            # Ожидание появления поля ввода логина
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(self.login_input_locator())
+            )
             self.send_keys(self.login_input_locator(), "neonila.zinova@icloud.com")
-            self.find_element(self.password_input_locator())
+
+            # Ожидание появления поля ввода пароля
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located(self.password_input_locator())
+            )
             self.send_keys(self.password_input_locator(), "1809Vika")
-            self.find_element(self.login_user_button_locator())
+
+            # Ожидание появления кнопки "Вход"
+            WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable(self.login_user_button_locator())
+            )
             self.click(self.login_user_button_locator())
         except Exception as e:
             print(f"Ошибка при логине: {e}")
