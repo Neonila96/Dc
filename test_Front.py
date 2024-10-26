@@ -13,15 +13,23 @@ text_mention_non_exist_user = "Привет @васяпупкин как тво�
 @pytest.mark.usefixtures("init_driver", "base_url")
 class TestMessage:
     def test_send_message(self, base_url):
-        # Инициализация страницы
-        home_page = HomePage(self.driver)
+    home_page = HomePage(self.driver)
+    
+    # Проверка текущего URL
+    assert self.driver.current_url == base_url, "Не на нужной странице"
 
-        # Отправка сообщения
-        home_page.send_message_in_channel(text)
+    time.sleep(2)  # Дать время на загрузку
 
-        # Проверка, что сообщение отправилось в диалог
-        message_send = home_page.is_message_send()
-        assert message_send.count(text) == 1, "Сообщение не отправлено"
+    print("Отправляем сообщение...")
+    home_page.send_message_in_channel(text)
+    time.sleep(2)  # Дать время на отправку сообщения
+
+    # Скриншот после отправки
+    self.driver.save_screenshot('after_send_message.png')
+
+    message_send = home_page.is_message_send()
+    assert message_send.count(text) == 1, "Сообщение не отправлено"
+
 
 
     def test_edit_message(self,base_url):
