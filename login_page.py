@@ -20,17 +20,17 @@ class LoginPage(BasePage):
 
     # Метод для залогиниться
     def login_user(self):
-    try:
-        self.find_element(self.login_input_locator())
-        self.send_keys(self.login_input_locator(), "neonila.zinova@icloud.com")
-        self.find_element(self.password_input_locator())
-        self.send_keys(self.password_input_locator(), "1809Vika")
-        self.find_element(self.login_user_button_locator())
-        self.click(self.login_user_button_locator())
-    except Exception as e:
-        print(f"Ошибка при логине: {e}")
-        self.driver.save_screenshot('login_error.png')
-        raise
+        try:
+            self.find_element(self.login_input_locator())
+            self.send_keys(self.login_input_locator(), "neonila.zinova@icloud.com")
+            self.find_element(self.password_input_locator())
+            self.send_keys(self.password_input_locator(), "1809Vika")
+            self.find_element(self.login_user_button_locator())
+            self.click(self.login_user_button_locator())
+        except Exception as e:
+            print(f"Ошибка при логине: {e}")
+            self.driver.save_screenshot('login_error.png')
+            raise
 
     # Метод для открытия страницы
     def open_login_page(self):
