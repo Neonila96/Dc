@@ -13,6 +13,7 @@ text_mention_non_exist_user = "Привет @васяпупкин как тво�
 @pytest.mark.usefixtures("init_driver", "base_url")
 class TestMessage:
     def test_send_message(self, base_url):
+        
     home_page = HomePage(self.driver)
     
     assert self.driver.current_url == base_url, "Не на нужной странице"
