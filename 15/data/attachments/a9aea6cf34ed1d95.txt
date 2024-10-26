@@ -1,0 +1,22 @@
+Ошибка при логине: Message: Can't find element by locator ('xpath', '//button//div[text()="Вход"]')
+Stacktrace:
+#0 0x5587784750aa <unknown>
+#1 0x558777f8c1a0 <unknown>
+#2 0x558777fd8d06 <unknown>
+#3 0x558777fd8fa1 <unknown>
+#4 0x55877801e344 <unknown>
+#5 0x558777ffcdad <unknown>
+#6 0x55877801b866 <unknown>
+#7 0x558777ffcb23 <unknown>
+#8 0x558777fcb990 <unknown>
+#9 0x558777fcc96e <unknown>
+#10 0x55877844116b <unknown>
+#11 0x558778444f68 <unknown>
+#12 0x55877842e64c <unknown>
+#13 0x558778445ae7 <unknown>
+#14 0x5587784134af <unknown>
+#15 0x5587784634f8 <unknown>
+#16 0x5587784636c0 <unknown>
+#17 0x558778473f26 <unknown>
+#18 0x7f7e73294ac3 <unknown>
+
